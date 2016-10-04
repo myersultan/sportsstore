@@ -72,6 +72,13 @@
 			return parseFloat($scope.num1)+parseFloat($scope.num2);
 		}
 
+		$scope.test = {
+
+			item1: null,
+			item2: '123'
+			
+		}
+
 		
 	});
 	</script>
@@ -94,5 +101,27 @@
 	<input type="text" name="num2" coma-dot-converter="coma-dot-converter" ng-model="num2">
 	<input type="text" name="sum" ng-model=calcSum()>
 </div>
+
+<div class="well">
+	<span ng-if = "!test.item1">[item1 null]</span>
+	<span ng-if = "test.item1">[item1 bar]</span>
+	<span ng-if = "test.item1 == undefined">[item1 undefined]</span>
+	<span ng-if = "test.item1 == null">[item1 null2]</span>
+	<br>
+
+	<span ng-if = "!test.item2">[item2 null]</span>
+	<span ng-if = "test.item2">[item2 bar]</span>
+	<span ng-if = "test.item2 == undefined">[item undefined]</span>
+	<span ng-if = "test.item2 == null">[item1 null2]</span>
+	<br>
+
+	<span ng-if = "!test.item3">[item3 null]</span>
+	<span ng-if = "test.item3">[item3 bar]</span>
+	<span ng-if = "test.item3 == undefined">[item3 undefined]</span>
+	<span ng-if = "test.item3 == null">[item1 null2]</span>
+	<span ng-if = "angular.isUndefined(test.item3)">[item3 undefined2]</span>
+	
+</div>
+
 </body>
 </html>

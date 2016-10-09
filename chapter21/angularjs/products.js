@@ -1,33 +1,66 @@
-angular.module("exampleApp", [])
-.controller("defaultCtrl", function ($scope) {
-	$scope.displayMode = "list";
+angular.module("exampleApp", ["increment", "ngResource", "ngRoute"])
+.constant("baseUrl", "http://localhost:5500/products/")
+.config(function ($routeProvider, $locationProvider){
+
+	$locationProvider.html5Mode({
+		enabled: true,
+		requireBase: false
+	});
+
+
+	$locationProvider.html5Mode(true);
+
+
+	$routeProvider.when("/list", {
+		templateUrl: "/tableView.html"
+	});
+
+	$routeProvider.when("/edit", {
+		templateUrl: "/editorView.html"
+	});
+
+	$routeProvider.when("/create", {
+		templateUrl: "/editorView.html"
+	});
+
+	$routeProvider.otherwise({
+		templateUrl: "/tableView.html"
+	});
+})
+.controller("defaultCtrl", function ($scope, $http, $resource, $location, baseUrl) {
+	
+
+
 	$scope.currentProduct = null;
-	$scope.listProducts = function () {
-		$scope.products = [
-		{ id: 0, name: "Dummy1", category: "Test", price: 1.25 },
-		{ id: 1, name: "Dummy2", category: "Test", price: 2.45 },
-		{ id: 2, name: "Dummy3", category: "Test", price: 4.25 }];
+
+	$scope.productsResource = $resource(baseUrl + ":id", {id: "@id"},
+				{ create: { method: "POST" }, save: { method: "PUT" }});
+								
+
+	$scope.listProducts = function () {		
+			$scope.products = $scope.productsResource.query();		
 	}
+
 	$scope.deleteProduct = function (product) {
-		$scope.products.splice($scope.products.indexOf(product), 1);
+		
+			product.$delete().then(function(){
+				$scope.products.splice($scope.products.indexOf(product), 1);
+			});
+			$location.path("/list");		
 	}
 	$scope.createProduct = function (product) {
-		$scope.products.push(product);
-		$scope.displayMode = "list";
+		new $scope.productsResource(product).$create().then(function(newProduct){
+			$scope.products.push(newProduct);
+			$location.path("/list");
+		});	
 	}
 	$scope.updateProduct = function (product) {
-		for (var i = 0; i < $scope.products.length; i++) {
-			if ($scope.products[i].id == product.id) {
-				$scope.products[i] = product;
-				break;
-			}
-		}
-		$scope.displayMode = "list";
+		product.$save();
+		$location.path("/list");		
 	}
-	$scope.editOrCreateProduct = function (product) {
-		$scope.currentProduct =
-		product ? angular.copy(product) : {};
-		$scope.displayMode = "edit";
+	$scope.editProduct = function (product) {
+		$scope.currentProduct = product;
+		$location.path("/edit");
 	}
 	$scope.saveEdit = function (product) {
 		if (angular.isDefined(product.id)) {
@@ -35,10 +68,15 @@ angular.module("exampleApp", [])
 		} else {
 			$scope.createProduct(product);
 		}
+		$scope.currentProduct = {};
+
 	}
 	$scope.cancelEdit = function () {
+		if ($scope.currentProduct && $scope.currentProduct.$get) {
+			$scope.currentProduct.$get();
+		}
 		$scope.currentProduct = {};
-		$scope.displayMode = "list";
+		$location.path("/list");
 	}
 	$scope.listProducts();
 });

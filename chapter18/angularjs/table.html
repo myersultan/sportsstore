@@ -1,54 +1,64 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html ng-app="exampleApp">
 <head>
-	<title>Ajax</title>
-	<script src="angular.js"></script>
-	<link href="bootstrap.css" rel="stylesheet" />
-	<link href="bootstrap-theme.css" rel="stylesheet" />
-	<script>
-	angular.module("exampleApp", [])
-	.controller("defaultCtrl", function ($scope, $http) {
-		$scope.products = 
-		[{ "name": "Apples", "category": "Fruit", "price": 1.20, "expiry": 10 },
-		{ "name": "Bananas", "category": "Fruit", "price": 2.42, "expiry": 7 },
-		{ "name": "Pears", "category": "Fruit", "price": 2.02, "expiry": 6 },
-		{ "name": "Tuna", "category": "Fish", "price": 20.45, "expiry": 3 },
-		{ "name": "Salmon", "category": "Fish", "price": 17.93, "expiry": 2 },
-		{ "name": "Trout", "category": "Fish", "price": 12.93, "expiry": 4 }];
+    <title>Services and Modules</title>
+    <script src="angular.js"></script>
+    <link href="bootstrap.css" rel="stylesheet" />
+    <link href="bootstrap-theme.css" rel="stylesheet" />
+    <script>
+        angular.module("exampleApp", [])
+        .controller("defaultCtrl", function ($scope, $http) {
+            $scope.products = 
+            [{ "name": "Apples", "category": "Fruit", "price": 1.20, "expiry": 10 },
+            { "name": "Bananas", "category": "Fruit", "price": 2.42, "expiry": 7 },
+            { "name": "Pears", "category": "Fruit", "price": 2.02, "expiry": 6 },
+            { "name": "Tuna", "category": "Fish", "price": 20.45, "expiry": 3 },
+            { "name": "Salmon", "category": "Fish", "price": 17.93, "expiry": 2 },
+            { "name": "Trout", "category": "Fish", "price": 12.93, "expiry": 4 }];
 
-		$scope.myproducts = $scope.products[2];
-		
-	});
-	</script>
+            $scope.myproducts = $scope.products[2];
 
-	<title>
+        });
+    </script>
+    <title>
         Demo: Using StickyTableHeaders on a Table with several rows in &lt;thead&gt;
     </title>
     <link rel="stylesheet" media="all" href="/custom.css" type="text/css">
 </head>
-<body ng-controller="defaultCtrl">
-	<div class="panel panel-default">
-		<div class="panel-body">
-			<table class="table table-striped table-bordered">
-				<thead><tr><th>Name</th><th>Category</th><th>Price</th></tr></thead>
-				<tbody>
-					<tr ng-hide="products.length">
-						<td colspan="3" class="text-center">No Data</td>
-					</tr>
-					<tr>
-						<td>
-							<select ng-model="myproducts" ng-options= "item.name for item in products" class="form-control"> </select>
-						</td>
-						<td>{{myproducts.category}}</td>
-						<td>{{myproducts.price}}</td>
-					</tr>
-				</tbody>
-			</table>
-			
-		</div>
-	</div>
+    <body ng-controller="defaultCtrl">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <table class="table table-striped table-bordered">
+                    <thead><tr><th>Name</th><th>Category</th><th>Price</th></tr></thead>
+                    <tbody>
+                        <tr ng-hide="products.length">
+                            <td colspan="3" class="text-center">No Data</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select ng-model="myproducts" ng-options= "item.name for item in products" class="form-control"> </select>
+                            </td>
+                            <td>{{myproducts.category}}</td>
+                            <td>{{myproducts.price}}</td>
+                        </tr>
+                        <tr><td>asdf</td></tr>
+                       <tr><td>asdf</td></tr>
+                       <tr><td>asdf</td></tr>
+                       <tr><td>asdf</td></tr>
+                       <tr><td>asdf</td></tr>
+                       <tr><td>asdf</td></tr>
+                       <tr><td>asdf</td></tr>
+                       <tr><td>asdf</td></tr>
+                       <tr><td>asdf</td></tr>
+                       <tr><td>asdf</td></tr>
+                       <tr><td>asdf</td></tr>
+                    </tbody>
+                </table>
 
-	 <h1>
+            </div>
+        </div>
+
+        <h1>
             Demo: Using StickyTableHeaders on a Table with several rows in <code>&lt;thead&gt;</code>
         </h1>
 
@@ -842,13 +852,11 @@
                 </tr>
             </tbody>
         </table>
-
         <div style="height: 4000px">
-        	lots of content down here...
+            lots of content down here...
         </div>
 
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
 
 <script src="jquery.stickytableheaders.min.js"></script>
 
@@ -856,5 +864,5 @@
     $("table").stickyTableHeaders();
 </script>
 
-	</body>
-	</html>
+    </body>
+</html>
